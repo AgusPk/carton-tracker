@@ -1,5 +1,5 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Image from 'next/image';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
@@ -36,13 +36,11 @@ export default function Home() {
             />
             Deploy now
           </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
+          <a href="/api/auth/login" className={styles.secondary}>
+            Login
+          </a>
+          <a href="/api/auth/logout" className={styles.secondary}>
+            Logout
           </a>
         </div>
       </main>
