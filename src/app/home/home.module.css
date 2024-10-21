@@ -1,0 +1,7 @@
+.viewContainer {
+  display: flex;
+  justify-content: center;
+  max-width: 1366px;
+  width: 100%;
+  margin: 30px auto;
+}
