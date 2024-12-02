@@ -11,3 +11,8 @@
   height: 25px;
   background-color: white;
 }
+
+.actionsContainer {
+  display: flex;
+  gap: .75rem;
+}

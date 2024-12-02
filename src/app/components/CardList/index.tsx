@@ -1,3 +1,5 @@
+import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
+
 import Card from "../Card";
 
 import styles from "./cardList.module.css";
@@ -7,6 +9,7 @@ type Props = {
 };
 
 export default async function CardList({ cards }: Props) {
+  // PokemonTCG.findCardsByQueries({ id:  })
   const queryURL = new URL("https://api.pokemontcg.io/v2/cards?");
   queryURL.searchParams.append("q", cards.map((card) => `id:${card}`).join(" OR "));
 

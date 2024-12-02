@@ -1,7 +1,7 @@
 import CardList from "@/app/components/CardList";
 
 export default async function Owned() {
-  // const response = await fetch("localhost:3000/api/transfers");
+  // const response = await fetch("/api/transfers");
   // const transfers = response.json();
 
   const transfers = [
@@ -16,8 +16,7 @@ export default async function Owned() {
       <input type="text" placeholder="Buscar carta por nombre" />
       <div>
         <h1>Mis prestamos</h1>
-        <div>
-          {transfers.map((transfer) => 
+          {transfers.map((transfer) =>
             <div key={transfer.id}>
               <h3>
                 {transfer.to}
@@ -25,7 +24,6 @@ export default async function Owned() {
               <CardList cards={transfer.cards} />
             </div>
           )}
-        </div>
       </div>
     </div>
   )
