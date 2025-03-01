@@ -21,7 +21,7 @@ export default async function Owned() {
               <h3>
                 {transfer.to}
               </h3>
-              <CardList cards={transfer.cards} />
+              {/* <CardList cards={transfer.cards} /> */}
             </div>
           )}
       </div>

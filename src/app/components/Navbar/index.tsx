@@ -6,6 +6,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navContainer}>
       <div className={styles.actionsContainer}>
+        <Link href="owned">Home</Link>
         <Link href="new">Nuevo prestamo</Link>
         <Link href="#">Mis prestamos</Link>
         <Link href="#">Lo que preste</Link>

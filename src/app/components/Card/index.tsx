@@ -1,24 +1,22 @@
 import Image from "next/image";
+import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
 import styles from "./card.module.css";
+import { ReactNode } from "react";
 
 type Props = {
-  card: any;
+  card: CardAPI;
+  children: ReactNode;
 }
 
-export default function Card({ card }: Props) {
-  const handleReturnCard = () => {
-    // TODO: handle return
-    console.log("to be returned");
-  };
-
+export default function Card({ card, children }: Props) {
   return (
     <div className={styles.container}>
-      <img className={styles.image} src={card.images.small} alt={card.name} />
-      <button className={styles.returnButton}>Devolver/devuelto</button>
+      <Image className={styles.image} src={card.images.small} width={150} height={200} alt={card.name} />
+      {children}
       <p className={styles.detail}>{card.name}</p>
       <div className={styles.setDetails}>
-        <img className={styles.setLogo} src={card.set.images.logo} alt={card.set.name} />
+        <Image className={styles.setLogo} src={card.set.images.logo} width={50} height={25} alt={card.set.name} />
         <span>{card.number}/{card.set.total}</span>
       </div>
       {/* TODO: Add lang to transfer? */}
