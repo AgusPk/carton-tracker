@@ -23,7 +23,7 @@ export default function CardSearch({ cardCounter, handleCounterChange }: Props) 
 
   const getCards = useCallback(debounce(async (card: string) => {
     setLoadingCards(true);
-    const cards = await PokemonTCG.findCardsByQueries({ q: `name:*${card}* legalities.standard:legal`, });
+    const cards = await PokemonTCG.findCardsByQueries({ q: `name:"*${card}*" legalities.standard:legal`, });
     setCardsFound(cards);
     setLoadingCards(false);
   }, 300), []);
