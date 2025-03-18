@@ -1,9 +1,9 @@
 'use client'
 
+import { ReactNode } from "react";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
-import styles from "./cardList.module.css";
-import { ReactNode } from "react";
+import styles from "./styles.module.css";
 
 type Props = {
   cards: CardAPI[];
@@ -12,7 +12,7 @@ type Props = {
 
 export default function CardList({ cards, renderItem }: Props) {
 
-  if (!cards.length) return <div>No cards found!</div>
+  if (!cards?.length) return <div>No cards found!</div>
   return (
     <div className={styles.listContainer}>
       {cards.map((card, index) => renderItem(card, index) )}

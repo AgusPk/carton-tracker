@@ -1,15 +1,15 @@
 import Link from "next/link";
-import styles from "./navbar.module.css";
+
 import AuthButton from "../AuthButton";
+
+import styles from "./styles.module.css";
 
 export default function Navbar() {
   return (
     <nav className={styles.navContainer}>
       <div className={styles.actionsContainer}>
-        <Link href="owned">Home</Link>
-        <Link href="new">Nuevo prestamo</Link>
-        <Link href="#">Mis prestamos</Link>
-        <Link href="#">Lo que preste</Link>
+        <Link href="/home">Home</Link>
+        <Link href="/home/new">Nuevo prestamo</Link>
       </div>
       <div>
         {/* Avatar / user */}

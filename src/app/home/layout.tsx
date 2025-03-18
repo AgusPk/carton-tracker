@@ -8,11 +8,11 @@ export default function Layout({ children }:
   }>
 ) {
   return (
-    <div>
+    <main>
       <Navbar />
       <div className={styles.viewContainer}>
         {children}
       </div>
-    </div>
+    </main>
   );
 }

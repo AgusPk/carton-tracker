@@ -1,4 +1,4 @@
-import styles from "./cardCounter.module.css";
+import styles from "./styles.module.css";
 
 type Props = {
   setCount: (count: number) => void;

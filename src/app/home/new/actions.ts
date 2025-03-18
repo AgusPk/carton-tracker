@@ -13,14 +13,14 @@ export async function createTransfer(from: string, to: string, cardList: Record<
 			count: card.count
 		}
 	});
-	const body = {
+	const body =JSON.stringify({
 		from,
 		to,
 		list
-	};
+	});
 	const response = await fetch('http://localhost:3000/api/transfers', {
 		method: 'POST',
-		body: JSON.stringify(body)
+		body
 	});
 	console.log(response);
 }

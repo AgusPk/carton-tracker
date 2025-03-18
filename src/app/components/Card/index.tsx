@@ -1,8 +1,8 @@
+import { ReactNode } from "react";
 import Image from "next/image";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
 import styles from "./card.module.css";
-import { ReactNode } from "react";
 
 type Props = {
   card: CardAPI;
