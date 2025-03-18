@@ -163,3 +163,8 @@ a.secondary {
     filter: invert();
   }
 }
+
+.activeButton {
+  background-color: #FFD700;
+  font-weight: bold;
+}
