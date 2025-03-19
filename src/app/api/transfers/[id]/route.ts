@@ -1,34 +1,64 @@
 import Transfer from '@/models/transfer';
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
+import { z } from 'zod';
+
+// Define validation schema for MongoDB ObjectId
+const ObjectIdSchema = z.string().refine(
+  (id) => mongoose.Types.ObjectId.isValid(id),
+  { message: "Invalid MongoDB ObjectId format" }
+);
+
+// Define validation schema for PUT request body
+const UpdateTransferSchema = z.object({
+  from: z.string(),
+  to: z.string(),
+  amount: z.number().int().positive(),
+  cardId: z.string(),
+  cardName: z.string(),
+  cardImage: z.string().url()
+});
 
 export async function PUT(req: Request, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   try {
     const { id } = params;
 
-    // Validate the id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    // Validate the id using Zod
+    const idValidation = ObjectIdSchema.safeParse(id);
+    if (!idValidation.success) {
       return new NextResponse(
-        JSON.stringify({ error: 'Invalid transfer ID' }),
-        {
-          status: 400,
-        }
+        JSON.stringify({ 
+          error: 'Invalid transfer ID',
+          details: idValidation.error.errors 
+        }),
+        { status: 400 }
       );
     }
 
-    // Parse the request body
+    // Parse and validate the request body
     const body = await req.json();
-    const { from, to, amount, cardId, cardImage, cardName } = body;
+    const bodyValidation = UpdateTransferSchema.safeParse(body);
+    
+    if (!bodyValidation.success) {
+      return new NextResponse(
+        JSON.stringify({ 
+          error: 'Invalid request data',
+          details: bodyValidation.error.errors 
+        }),
+        { status: 400 }
+      );
+    }
+
+    const validatedData = bodyValidation.data;
 
     // Find the transfer by id and update it
     const updatedTransfer = await Transfer.findByIdAndUpdate(
       id,
-      { from, to, amount, cardId, cardImage, cardName },
-      { new: true, runValidators: true } // Return the updated document
+      validatedData,
+      { new: true, runValidators: true }
     );
 
-    // If no transfer is found, return a 404
     if (!updatedTransfer) {
       return new NextResponse(JSON.stringify({ error: 'Transfer not found' }), {
         status: 404,
@@ -39,7 +69,8 @@ export async function PUT(req: Request, props: { params: Promise<{ id: string }>
       status: 200,
     });
   } catch (error) {
-    return new NextResponse(JSON.stringify({ error: error }), {
+    console.error(error);
+    return new NextResponse(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
     });
   }
@@ -50,20 +81,20 @@ export async function DELETE(req: Request, props: { params: Promise<{ id: string
   try {
     const { id } = params;
 
-    // Validate the id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    // Validate the id using Zod
+    const idValidation = ObjectIdSchema.safeParse(id);
+    if (!idValidation.success) {
       return new NextResponse(
-        JSON.stringify({ error: 'Invalid transfer ID' }),
-        {
-          status: 400,
-        }
+        JSON.stringify({ 
+          error: 'Invalid transfer ID',
+          details: idValidation.error.errors 
+        }),
+        { status: 400 }
       );
     }
 
-    // Find the transfer by id and delete it
     const deletedTransfer = await Transfer.findByIdAndDelete(id);
 
-    // If no transfer is found, return a 404
     if (!deletedTransfer) {
       return new NextResponse(JSON.stringify({ error: 'Transfer not found' }), {
         status: 404,
@@ -74,7 +105,8 @@ export async function DELETE(req: Request, props: { params: Promise<{ id: string
       status: 200,
     });
   } catch (error) {
-    return new NextResponse(JSON.stringify({ error: error }), {
+    console.error(error);
+    return new NextResponse(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
     });
   }
