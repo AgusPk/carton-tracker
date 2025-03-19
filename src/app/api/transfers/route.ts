@@ -4,21 +4,25 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { from, to, amount, cardId } = body;
+    console.log(body)
+    const { from, to, list } = body;
 
-    const transfer = new Transfer({
-      from,
-      to,
-      amount,
-      cardId,
-    });
 
-    await transfer.save();
+    for(const card of list) {
+      const transfer = new Transfer({
+        from,
+        to,
+        amount: card.count,
+        cardId: card.id,
+      });
+      await transfer.save();
+    }
 
-    return new NextResponse(JSON.stringify(transfer), {
+    return new NextResponse(JSON.stringify({message: 'transfers created'}), {
       status: 201,
     });
   } catch (error) {
+    console.log({ error });
     return new NextResponse(JSON.stringify({ error }), {
       status: 500,
     });
