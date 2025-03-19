@@ -19,12 +19,12 @@ export async function PUT(req: Request, props: { params: Promise<{ id: string }>
 
     // Parse the request body
     const body = await req.json();
-    const { from, to, amount, cardId } = body;
+    const { from, to, amount, cardId, cardImage, cardName } = body;
 
     // Find the transfer by id and update it
     const updatedTransfer = await Transfer.findByIdAndUpdate(
       id,
-      { from, to, amount, cardId },
+      { from, to, amount, cardId, cardImage, cardName },
       { new: true, runValidators: true } // Return the updated document
     );
 
