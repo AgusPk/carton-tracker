@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    console.log(body)
     const { from, to, list } = body;
 
 
@@ -14,6 +13,8 @@ export async function POST(req: Request) {
         to,
         amount: card.count,
         cardId: card.id,
+        cardName: card.name,
+        cardImage: card.imageUrl,
       });
       await transfer.save();
     }
