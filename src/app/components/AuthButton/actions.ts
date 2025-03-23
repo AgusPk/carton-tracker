@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const logout = async () => {
+export async function logout() {
   const cookieStore = await cookies();
   cookieStore.delete("appSession");
   redirect("/");

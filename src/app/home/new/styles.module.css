@@ -1,4 +1,32 @@
+.newTransferPage {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.newTransferContainer {
+  display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.newTransferForm {
+  display: flex;
+  gap: 1rem;
+	width: 100%;
+}
+
 .cardListContainer {
 	display: flex;
 	gap: 16px;
+	width: 100%;
+	min-width: 100%;
+}
+
+.addedCardsList {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+	border: 1px solid var(--primary-red);
 }

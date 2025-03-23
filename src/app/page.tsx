@@ -8,7 +8,7 @@ export default async function Home() {
   const isLoggedIn = cookieStore.get("appSession");
 
   if (isLoggedIn) {
-    redirect("/home/owned");
+    redirect("/home");
   }
 
   return (

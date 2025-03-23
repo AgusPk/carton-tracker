@@ -1,0 +1,22 @@
+.avatar {
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  background-color: var(--white);
+  cursor: pointer;
+}
+
+.authButtonContainer {
+  position: relative;
+}
+
+.userMenuContainer {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+

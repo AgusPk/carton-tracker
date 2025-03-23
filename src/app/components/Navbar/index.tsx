@@ -11,10 +11,7 @@ export default function Navbar() {
         <Link href="/home">Home</Link>
         <Link href="/home/new">Nuevo prestamo</Link>
       </div>
-      <div>
-        {/* Avatar / user */}
-        <AuthButton />
-      </div>
+      <AuthButton />
     </nav>
   )
 }

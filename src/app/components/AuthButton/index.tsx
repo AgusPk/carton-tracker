@@ -1,15 +1,29 @@
 'use client'
 
+import { useState, useRef } from "react";
 import Image from "next/image";
-import { logout } from "./actions";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import useOnClickOutside from "@/app/hooks/useOnClickOutside";
+
+import { logout } from "./actions";
+
+import styles from "./styles.module.css";
 
 export default function AuthButton() {
   const { user } = useUser();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(menuRef, () => setIsMenuOpen(false));
+
   return (
-    <>
-      {user &&  user.picture && <Image src={user.picture} alt={user?.name || ''} width={20} height={20} />}
-      <button onClick={logout}>Logout</button>
-    </>
+    <div className={styles.authButtonContainer} ref={menuRef}>
+      {user && user.picture &&
+        <Image className={styles.avatar} onClick={() => setIsMenuOpen(!isMenuOpen)} src={user.picture} alt={user?.name || ''} width={20} height={20} />
+      }
+      {isMenuOpen && <div className={styles.userMenuContainer}>
+        <button onClick={logout}>Logout</button>
+      </div>}
+    </div>
   );
 }

@@ -1,16 +1,16 @@
 'use client'
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
-import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
-import debounce from "lodash.debounce";
 
 import CardList from "../CardList";
 import Card from "../Card";
 import CardCounter from "../CardCounter";
 
+import { findCard } from "./actions";
 import styles from "./styles.module.css";
-
+import Input from "../Input";
+import debounce from "lodash.debounce";
 
 type Props = {
   cardCounter: Record<string, CardAPI & { count: number }>;
@@ -20,21 +20,37 @@ type Props = {
 export default function CardSearch({ cardCounter, handleCounterChange }: Props) {
   const [cardsFound, setCardsFound] = useState<CardAPI[]>([]);
   const [loadingCards, setLoadingCards] = useState(false);
+  const [card, setCard] = useState<string>('');
 
-  const getCards = useCallback(debounce(async (card: string) => {
+  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setLoadingCards(true);
-    const cards = await PokemonTCG.findCardsByQueries({ q: `name:"*${card}*" legalities.standard:legal`, });
+    const cards = await findCard(card);
     setCardsFound(cards);
     setLoadingCards(false);
-  }, 300), []);
+  }
+  
+  // const submitDebounce = debounce(handleSubmit, 1000);
 
   return (
-    <div>
-      <input type="text" className={styles.searchInput} placeholder="Buscar por nombre de carta" onChange={(e) => getCards(e.target.value)} />    
+    <div className={styles.cardSearchContainer}>
+      <form onSubmit={handleSubmit}>
+        <Input
+          id="search-card"
+          value={card}
+          placeholder="Buscar por nombre de carta"
+          onChange={(value) => setCard(value)}
+        />
+        <button type="submit">Buscar</button>
+      </form>
       {loadingCards && <p>Cargando...</p>}
       <CardList cards={cardsFound} renderItem={(card, index) => (
         <Card key={`${card.name}-${index}`} card={card}>
-          <CardCounter count={cardCounter[card.id]?.count || 0} setCount={(newCount) => handleCounterChange(card, newCount)} />
+          <CardCounter
+            count={cardCounter[card.id]?.count || 0}
+            setCount={(newCount) => handleCounterChange(card, newCount)}
+          />
         </Card>
       )} />
     </div>
