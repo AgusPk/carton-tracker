@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { ToastContainer } from 'react-toastify';
 
 import localFont from 'next/font/local';
-import Navbar from './components/Navbar';
 
 import './globals.css';
 
@@ -31,6 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <UserProvider>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
+          <ToastContainer />
           {children}
         </body>
       </UserProvider>

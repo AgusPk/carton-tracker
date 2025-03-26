@@ -12,31 +12,27 @@ export default async function Home() {
 		acc[transfer.to] = [...(acc[transfer.to] || []), transfer];
 		return acc;
 	}, {} as Record<string, Transfer[]>);
+	console.log(transferOrderByTo);
 
 	return (
 		<div>
-			{/* <input type="text" placeholder="Buscar carta por nombre" /> */}
-			<div>
-				<h1>Mis prestamos</h1>
-				{transfers?.length ? Object.keys(transferOrderByTo).map((key) =>
-					<div key={key}>
-						<h3>
-							{key}
-						</h3>
-						{transferOrderByTo[key].map((transfer, index) => (
-							<div key={index}>
-								{transfer.cardName}
-								{transfer.cardImage &&
-									<Image src={transfer.cardImage} alt={transfer.cardName} width={100} height={100} />
-									}
-								<p>{transfer.amount}</p>
-							</div>
+			<h1>Mis prestamos</h1>
+			{transfers?.length ? Object.keys(transferOrderByTo).map((key) =>
+				<div key={key}>
+					<h3>{key}</h3>
+					{transferOrderByTo[key].map((transfer, index) => (
+						<div key={index}>
+							{transfer.cardName}
+							{transfer.cardImage &&
+								<Image src={transfer.cardImage} alt={transfer.cardName} width={100} height={100} />
+							}
+							<p>{transfer.amount}</p>
+						</div>
 						))}
-					</div>)
-					:
-					<span>No tenes prestamos</span>
-				}
-    	</div>
+				</div>
+				) :
+				<span>No tenes prestamos</span>
+			}
 		</div>
 	)
 }
