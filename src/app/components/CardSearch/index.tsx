@@ -1,16 +1,19 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
+import debounce from 'lodash.debounce';
 
 import CardList from "../CardList";
 import Card from "../Card";
 import CardCounter from "../CardCounter";
+import Input from "../Input";
+import searchIcon from "../../icons/ic-search.svg";
 
 import { findCard } from "./actions";
+
 import styles from "./styles.module.css";
-import Input from "../Input";
-import debounce from "lodash.debounce";
+import Image from "next/image";
 
 type Props = {
   cardCounter: Record<string, CardAPI & { count: number }>;
@@ -22,28 +25,36 @@ export default function CardSearch({ cardCounter, handleCounterChange }: Props) 
   const [loadingCards, setLoadingCards] = useState(false);
   const [card, setCard] = useState<string>('');
 
-  
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoadingCards(true);
-    const cards = await findCard(card);
-    setCardsFound(cards);
-    setLoadingCards(false);
-  }
-  
-  // const submitDebounce = debounce(handleSubmit, 1000);
+  const debouncedSearchRef = useRef(
+    debounce(async (term: string) => {
+      if (!term.trim()) {
+        setCardsFound([]);
+        return;
+      }
+      setLoadingCards(true);
+      const cards = await findCard(term);
+      setCardsFound(cards);
+      setLoadingCards(false);
+    }, 500)
+  );
+
+  useEffect(() => {
+    const search = debouncedSearchRef.current;
+    search(card);
+    return () => {
+      search.cancel();
+    };
+  }, [card]);
 
   return (
     <div className={styles.cardSearchContainer}>
-      <form onSubmit={handleSubmit}>
-        <Input
-          id="search-card"
-          value={card}
-          placeholder="Buscar por nombre de carta"
-          onChange={(value) => setCard(value)}
-        />
-        <button type="submit">Buscar</button>
-      </form>
+      <Input
+        id="search-card"
+        value={card}
+        placeholder="Buscar por nombre de carta"
+        onChange={(value) => setCard(value)}
+        icon={<Image width={24} height={24} src={searchIcon} alt="Buscar" />}
+      />
       {loadingCards && <p>Cargando...</p>}
       <CardList cards={cardsFound} renderItem={(card, index) => (
         <Card key={`${card.name}-${index}`} card={card}>

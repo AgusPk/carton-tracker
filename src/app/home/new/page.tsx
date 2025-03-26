@@ -3,19 +3,23 @@
 import { useState } from "react";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/navigation";
 
 import CardSearch from "@/app/components/CardSearch";
 import { CardCount } from "@/types/types";
 import { createTransfer } from "./actions";
+import Input from "@/app/components/Input";
 
 import styles from "./styles.module.css";
-import Input from "@/app/components/Input";
+import CardListMin from "@/app/components/CardListMin";
+import Button from "@/app/components/Button";
 
 export default function NewTransfer() {
   const { user } = useUser();
   const [cardCounter, setCardCounter] = useState<Record<string, CardCount>>({});
   const [to, setTo] = useState(''); 
   const [createLoading, setCreateLoading] = useState(false);
+  const router = useRouter();
 
   const onCounterChange = (card: CardAPI, newCount: number) => {
     if (newCount === 0) {
@@ -32,31 +36,30 @@ export default function NewTransfer() {
       setCreateLoading(true);
       const response = await createTransfer(user.email || '', to, cardCounter);
       setCreateLoading(false);
+      if (response) {
+        router.push('/home');
+      }
     }
   }
 
   return (
-    <div className={styles.newTransferPage}>
-      <h1>Nuevo prestamo</h1>
+    <>
+      <h1 className={styles.title}>Nuevo prestamo</h1>
       <div className={styles.newTransferContainer}>
         <div className={styles.newTransferForm}>
-          <label htmlFor="userName">A quien le prestas?</label>
           <Input
-            id="userName"
+            placeholder="A quien le prestas?"
             value={to}
+            className={styles.nameInput}
             onChange={(value) => setTo(value)}
           />
-          <button type="button" onClick={handleSubmit}>Confirmar</button>
+          <Button type="button" onClick={handleSubmit}>Confirmar</Button>
         </div>
         <div className={styles.cardListContainer}>
-          <ul className={styles.addedCardsList}>
-            {Object.values(cardCounter).map((card) => (
-              <li key={card.id}>{card.name} {card.number}/{card.set.total} x{card?.count}</li>
-            ))}
-          </ul>
+          <CardListMin cardCounter={cardCounter} />
           <CardSearch cardCounter={cardCounter} handleCounterChange={onCounterChange}/>
         </div>
       </div>
-    </div>
+    </>
   )
 }

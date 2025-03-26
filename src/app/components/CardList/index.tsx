@@ -11,8 +11,6 @@ type Props = {
 };
 
 export default function CardList({ cards, renderItem }: Props) {
-
-  if (!cards?.length) return <div>No cards found!</div>
   return (
     <div className={styles.listContainer}>
       {cards.map((card, index) => renderItem(card, index) )}

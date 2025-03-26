@@ -7,12 +7,13 @@
 .newTransferContainer {
   display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 2.5rem;
 }
 
 .newTransferForm {
   display: flex;
-  gap: 1rem;
+	align-items: center;
+	gap: 1rem;
 	width: 100%;
 }
 
@@ -20,7 +21,7 @@
 	display: flex;
 	gap: 16px;
 	width: 100%;
-	min-width: 100%;
+	max-width: 100%;
 }
 
 .addedCardsList {
@@ -28,5 +29,19 @@
 	flex-direction: column;
 	gap: 1rem;
 	width: 100%;
+	max-width: 360px;
 	border: 1px solid var(--primary-red);
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: 600;
+	color: var(--white);
+	margin-bottom: 1rem;
+}
+
+.nameInput {
+	width: 100%;
+	max-width: 300px;
+	height: 35px;
 }

@@ -1,25 +1,32 @@
+import { ReactNode } from "react";
+
 import styles from "./styles.module.css";
 
 type Props = {
+	id?: string;
 	label?: string;
 	value: string;
 	onChange: (value: string) => void;
-	id: string;
 	placeholder?: string;
+	className?: string;
+	icon?: ReactNode;
 }
 
-export default function Input({ label, value, onChange, id, placeholder }: Props) {
+export default function Input({ label, value, onChange, id, placeholder, className, icon }: Props) {
   return (
-    <div>
+    <>
 			{label && <label htmlFor={id}>{label}</label>}
-      <input
+      <div className={styles.inputWrapper}>
+        <input
 				id={id}
 				type="text"
 				placeholder={placeholder}
-				className={styles.input}
+				className={`${styles.input} ${className} ${icon ? styles.inputWithIcon : ""}`}
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 			/>
-    </div>
+        {icon && <span className={styles.icon}>{icon}</span>}
+      </div>
+    </>
   )
 }

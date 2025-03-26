@@ -1,8 +1,15 @@
 .viewContainer {
   display: flex;
+  flex-direction: column;
   max-width: 1366px;
   width: 100%;
   margin: 30px auto;
   padding: 0 1rem;
   background-color: var(--background);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-blue);
 }

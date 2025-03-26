@@ -9,6 +9,7 @@
   --secondary-purple: #6f35fc;
   
   --black: #1e1e1e;
+  --true-black: #000000;
   --white: #ffffff;
   --gray: #a8a8a8;
   
@@ -20,12 +21,12 @@
 
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--black);
+    --background: var(--true-black);
     --foreground: var(--white);
   }
-} */
+}
 
 html,
 body {
