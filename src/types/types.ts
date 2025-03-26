@@ -1,6 +1,6 @@
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
-export interface Transfer {
+export interface Transfer extends Partial<CardAPI> {
 	_id: string;
 	from: string;
 	to: string;

@@ -1,7 +1,7 @@
 .viewContainer {
   display: flex;
   flex-direction: column;
-  max-width: 1366px;
+  max-width: 1266px;
   width: 100%;
   margin: 30px auto;
   padding: 0 1rem;
@@ -11,5 +11,23 @@
 .title {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--primary-blue);
+  color: var(--white);
+}
+
+.cardList {
+  display: flex;
+  gap: 1rem;
+}
+
+.transferContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.userName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 1rem 0;
 }

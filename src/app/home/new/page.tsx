@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import CardSearch from "@/app/components/CardSearch";
@@ -20,7 +19,6 @@ export default function NewTransfer() {
   const [cardCounter, setCardCounter] = useState<Record<string, CardCount>>({});
   const [to, setTo] = useState(''); 
   const [createLoading, setCreateLoading] = useState(false);
-  const router = useRouter();
 
   const onCounterChange = (card: CardAPI, newCount: number) => {
     if (newCount === 0) {
@@ -36,10 +34,10 @@ export default function NewTransfer() {
     if (user && Object.values(cardCounter).length > 0) {
       setCreateLoading(true);
       const response = await createTransfer(user.email || '', to, cardCounter);
+      toast.loading('Creando prestamo...');
       setCreateLoading(false);
       if (response) {
         toast.success('Prestamo creado correctamente');
-        router.push('/home');
       }
     }
   }
@@ -55,7 +53,7 @@ export default function NewTransfer() {
             className={styles.nameInput}
             onChange={(value) => setTo(value)}
           />
-          <Button type="button" onClick={handleSubmit}>Confirmar</Button>
+          <Button type="button" onClick={handleSubmit} isLoading={createLoading}>Confirmar</Button>
         </div>
         <div className={styles.cardListContainer}>
           <CardListMin cardCounter={cardCounter} removeCard={(cardId) => onCounterChange(cardId, 0)} />

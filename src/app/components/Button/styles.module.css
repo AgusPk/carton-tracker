@@ -9,6 +9,7 @@
   cursor: pointer;
   transition: background-color 0.2s, opacity 0.2s;
   border: none;
+  gap: 8px;
 }
 
 .button:disabled {
@@ -85,4 +86,24 @@
 .large {
   padding: 12px 24px;
   font-size: 16px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  cursor: wait;
+  opacity: 0.8;
 } 

@@ -57,7 +57,7 @@ export default function CardSearch({ cardCounter, handleCounterChange }: Props) 
       />
       {loadingCards && <p>Cargando...</p>}
       <CardList cards={cardsFound} renderItem={(card, index) => (
-        <Card key={`${card.name}-${index}`} card={card}>
+        <Card key={`${card.name}-${index}`} card={card} cardType="card">
           <CardCounter
             count={cardCounter[card.id]?.count || 0}
             setCount={(newCount) => handleCounterChange(card, newCount)}

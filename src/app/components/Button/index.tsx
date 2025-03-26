@@ -8,22 +8,25 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   type?: ButtonType;
+  isLoading?: boolean;
 }
 
 export default function Button(
-  { className, variant = 'primary', size, type = 'button', children, ...props }: Props,
+  { className, variant = 'primary', size, type = 'button', isLoading, children, ...props }: Props,
 ) {
   const buttonClasses = [
     styles.button,
     styles[variant],
     size && styles[size],
+    isLoading && styles.loading,
     className,
     ]
       .filter(Boolean)
       .join(' ');
 
   return (
-    <button className={buttonClasses} type={type} {...props}>
+    <button className={buttonClasses} type={type} disabled={isLoading} {...props}>
+      {isLoading && <span className={styles.spinner} />}
       {children}
     </button>
   );
