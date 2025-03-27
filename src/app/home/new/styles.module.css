@@ -7,21 +7,54 @@
 .newTransferContainer {
   display: flex;
 	flex-direction: column;
-	gap: 2.5rem;
+	gap: 2rem;
+	margin-top: 2rem;
 }
 
 .newTransferForm {
   display: flex;
-	align-items: center;
+	flex-direction: column;
 	gap: 1rem;
-	width: 100%;
+	max-width: 400px;
+}
+
+.directionSelector {
+  display: flex;
+	gap: 1rem;
+}
+
+.directionButton {
+  flex: 1;
+  background-color: var(--background);
+  border: 2px solid var(--gray);
+  color: var(--foreground);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.directionButton:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--gray) 10%, transparent);
+  border-color: var(--primary-blue);
+}
+
+.directionButton.selected {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border-color: var(--primary-blue);
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.directionButton.selected:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary-blue) 90%, black);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cardListContainer {
 	display: flex;
-	gap: 16px;
-	width: 100%;
-	max-width: 100%;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .addedCardsList {
@@ -42,6 +75,4 @@
 
 .nameInput {
 	width: 100%;
-	max-width: 300px;
-	height: 35px;
 }

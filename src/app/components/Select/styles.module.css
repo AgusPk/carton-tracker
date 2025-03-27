@@ -1,0 +1,88 @@
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.selectContainer {
+  position: relative;
+  width: 100%;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--gray);
+  border-radius: 0.5rem;
+  background-color: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select:hover {
+  border-color: var(--primary-blue);
+}
+
+.select.open {
+  border-color: var(--primary-blue);
+}
+
+.placeholder {
+  color: var(--gray);
+}
+
+.optionsContainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.25rem;
+  background-color: var(--background);
+  border: 1px solid var(--gray);
+  border-radius: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.option:hover {
+  background-color: color-mix(in srgb, var(--gray) 10%, transparent);
+}
+
+.option.selected {
+  background-color: color-mix(in srgb, var(--primary-blue) 10%, transparent);
+}
+
+.optionIcon {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gray);
+  border-top-color: var(--primary-blue);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+} 

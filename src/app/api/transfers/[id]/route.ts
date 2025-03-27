@@ -80,10 +80,12 @@ export async function DELETE(req: Request, props: { params: Promise<{ id: string
   const params = await props.params;
   try {
     const { id } = params;
+    console.log('Attempting to delete transfer with ID:', id); // Debug log
 
     // Validate the id using Zod
     const idValidation = ObjectIdSchema.safeParse(id);
     if (!idValidation.success) {
+      console.log('Invalid transfer ID:', idValidation.error); // Debug log
       return new NextResponse(
         JSON.stringify({ 
           error: 'Invalid transfer ID',
@@ -94,8 +96,10 @@ export async function DELETE(req: Request, props: { params: Promise<{ id: string
     }
 
     const deletedTransfer = await Transfer.findByIdAndDelete(id);
+    console.log('Delete result:', deletedTransfer); // Debug log
 
     if (!deletedTransfer) {
+      console.log('Transfer not found:', id); // Debug log
       return new NextResponse(JSON.stringify({ error: 'Transfer not found' }), {
         status: 404,
       });
@@ -105,7 +109,7 @@ export async function DELETE(req: Request, props: { params: Promise<{ id: string
       status: 200,
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error in DELETE handler:', error); // Debug log
     return new NextResponse(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
     });

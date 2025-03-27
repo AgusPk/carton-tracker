@@ -1,0 +1,20 @@
+.returnButton {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.returnButton:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary-blue) 90%, black);
+  transform: translateY(-1px);
+}
+
+.returnButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+} 

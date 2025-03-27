@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { ToastContainer } from 'react-toastify';
+import { syncUser } from './actions';
 
 import localFont from 'next/font/local';
 
@@ -22,11 +23,13 @@ export const metadata: Metadata = {
   description: 'Carton tracker',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await syncUser();
+
   return (
     <html lang="en">
       <UserProvider>

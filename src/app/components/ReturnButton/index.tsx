@@ -1,25 +1,33 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import { returnTransfer } from '@/app/home/actions';
+import styles from './styles.module.css';
 
-import Button from "../Button";
-import { returnTransfer } from "./actions";
-import { useState } from "react";
-
-type Props = {
+interface Props {
   transferId: string;
+  onReturn: (transferId: string) => Promise<void>;
 }
 
-export default function ReturnButton({ transferId }: Props) {
-  const router = useRouter();
+export default function ReturnButton({ transferId, onReturn }: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleReturn = async () => {
+  const handleClick = async () => {
     setIsLoading(true);
-    await returnTransfer(transferId);
-    router.refresh();
-    setIsLoading(false);
+    try {
+      await onReturn(transferId);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  return <Button type="button" onClick={handleReturn} isLoading={isLoading}>Devolver</Button>;
+  return (
+    <button 
+      className={styles.returnButton}
+      onClick={handleClick}
+      disabled={isLoading}
+    >
+      {isLoading ? 'Devolviendo...' : 'Devolver'}
+    </button>
+  );
 } 

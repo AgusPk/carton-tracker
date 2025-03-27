@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import styles from './styles.module.css';
 
 type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
@@ -9,6 +11,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   type?: ButtonType;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
 export default function Button(
@@ -20,12 +23,13 @@ export default function Button(
     size && styles[size],
     isLoading && styles.loading,
     className,
+    props.disabled && styles.disabled,
     ]
       .filter(Boolean)
       .join(' ');
 
   return (
-    <button className={buttonClasses} type={type} disabled={isLoading} {...props}>
+    <button className={buttonClasses} type={type} disabled={isLoading || props.disabled} {...props}>
       {isLoading && <span className={styles.spinner} />}
       {children}
     </button>

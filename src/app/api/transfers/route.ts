@@ -26,7 +26,7 @@ const GetQuerySchema = z.object({
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    
+    console.log({body})
     // Validate the request body
     const validationResult = TransferSchema.safeParse(body);
     
