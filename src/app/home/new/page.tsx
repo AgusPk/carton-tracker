@@ -37,7 +37,8 @@ export default function NewTransfer() {
         const response = await fetch('/api/users');
         if (response.ok) {
           const data = await response.json();
-          setUsers(data);
+          const filteredUsers = data.filter((u: User) => u.email !== user?.email);
+          setUsers(filteredUsers);
         }
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -47,8 +48,10 @@ export default function NewTransfer() {
       }
     };
 
-    fetchUsers();
-  }, []);
+    if (user?.email) {
+      fetchUsers();
+    }
+  }, [user?.email]);
 
   const onCounterChange = (card: CardAPI, newCount: number) => {
     if (newCount === 0) {
