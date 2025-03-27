@@ -37,9 +37,9 @@ export default async function Home() {
           </div>
         </div>
         <div className={styles.ctas}>
-          <Link href="/api/auth/login" className={styles.primary}>
+          <a href="/api/auth/login" className={styles.primary}>
             Comenzar Ahora
-          </Link>
+          </a>
           <Link href="#features" className={styles.secondary}>
             Conocer Más
           </Link>
