@@ -1,30 +1,81 @@
 :root {
-  
+  /* Primary palette - minimalistic with accent colors */
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+
+  --secondary: #10b981;
+  --secondary-light: #34d399;
+  --secondary-dark: #059669;
+
+  --danger: #ef4444;
+  --danger-light: #f87171;
+  --danger-dark: #dc2626;
+
+  /* Neutral palette - for backgrounds, text, and borders */
+  --background: #ffffff;
+  --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #f9fafb;
+  --accent-foreground: #111827;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+
+  /* Spacing system */
+  --radius: 0.5rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+
+  /* Animation */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Legacy variables - keeping for compatibility */
   --primary-yellow: #ffcb05;
-  --primary-red: #cc0000;
-  --primary-blue: #3b4cca;
-  
-  --secondary-green: #4dad5b;
-  --secondary-orange: #ff7f27;
-  --secondary-purple: #6f35fc;
-  
-  --black: #1e1e1e;
+  --primary-red: var(--danger);
+  --primary-blue: var(--primary);
+
+  --secondary-green: var(--secondary);
+  --secondary-orange: #f97316;
+  --secondary-purple: #8b5cf6;
+
+  --black: var(--foreground);
   --true-black: #000000;
-  --white: #ffffff;
-  --gray: #a8a8a8;
-  
-  --gold: #d4af37;
-  --silver: #c0c0c0;
-
-  --background: var(--white);
-  --foreground: var(--black);
-
+  --white: var(--background);
+  --gray: var(--muted-foreground);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--true-black);
-    --foreground: var(--white);
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+    --card: #171717;
+    --card-foreground: #fafafa;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --accent: #262626;
+    --accent-foreground: #fafafa;
+    --border: #404040;
+    --input: #404040;
+
+    --primary-light: #818cf8;
+    --primary-dark: #4f46e5;
   }
 }
 
@@ -37,9 +88,11 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
 }
 
 * {
@@ -51,10 +104,49 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-@media (prefers-color-scheme: dark) {
+a:hover {
+  color: var(--primary);
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
   html {
-    color-scheme: dark;
+    scroll-behavior: smooth;
   }
 }
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--primary-light);
+  color: var(--background);
+}
+

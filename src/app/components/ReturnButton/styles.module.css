@@ -1,20 +1,23 @@
 .returnButton {
-  background-color: var(--primary-blue);
-  color: var(--white);
+  background-color: var(--primary);
+  color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius);
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
+  font-size: 0.75rem;
 }
 
 .returnButton:hover:not(:disabled) {
-  background-color: color-mix(in srgb, var(--primary-blue) 90%, black);
+  background-color: var(--primary-dark);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .returnButton:disabled {
   opacity: 0.7;
   cursor: not-allowed;
-} 
+}
+
