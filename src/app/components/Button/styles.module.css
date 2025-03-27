@@ -3,79 +3,102 @@
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   gap: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--primary-blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-blue) 30%, transparent);
+}
+
+.button:active {
+  transform: translateY(1px);
 }
 
 .primary {
   background-color: var(--primary-blue);
   color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .primary:hover:not(:disabled) {
   background-color: color-mix(in srgb, var(--primary-blue) 90%, black);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .secondary {
   background-color: var(--secondary-green);
   color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .secondary:hover:not(:disabled) {
   background-color: color-mix(in srgb, var(--secondary-green) 90%, black);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .destructive {
   background-color: var(--primary-red);
   color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .destructive:hover:not(:disabled) {
   background-color: color-mix(in srgb, var(--primary-red) 90%, black);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .outline {
   background-color: transparent;
-  border: 1px solid var(--gray);
+  border: 2px solid var(--gray);
   color: var(--foreground);
 }
 
 .outline:hover:not(:disabled) {
   background-color: color-mix(in srgb, var(--gray) 10%, transparent);
+  border-color: var(--primary-blue);
+  transform: translateY(-1px);
 }
 
 .ghost {
   background-color: transparent;
   color: var(--foreground);
+  padding: 6px 12px;
 }
 
 .ghost:hover:not(:disabled) {
   background-color: color-mix(in srgb, var(--gray) 10%, transparent);
+  transform: translateY(-1px);
 }
 
 .link {
   background-color: transparent;
   color: var(--primary-blue);
-  text-decoration: underline;
+  text-decoration: none;
+  padding: 6px 12px;
 }
 
 .link:hover:not(:disabled) {
   opacity: 0.8;
+  text-decoration: underline;
 }
 
 .small {
@@ -94,7 +117,7 @@
   border: 2px solid currentColor;
   border-top-color: transparent;
   border-radius: 50%;
-  animation: spin 0.6s linear infinite;
+  animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes spin {
@@ -111,4 +134,27 @@
 .disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Ripple effect */
+.button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.button:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
 } 

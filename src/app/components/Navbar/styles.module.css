@@ -1,13 +1,131 @@
 .navContainer {
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--black);
   color: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  background-color: color-mix(in srgb, var(--black) 95%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--white) 10%, transparent);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navContainer.scrolled {
+  padding: 0.75rem 1.5rem;
+  background-color: color-mix(in srgb, var(--black) 98%, transparent);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: translateY(-1px);
 }
 
 .actionsContainer {
   display: flex;
   align-items: center;
-  gap: .75rem;
+  gap: 1rem;
+}
+
+.navLink {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-blue);
+  transition: all 0.2s ease;
+  transform: translateX(-50%);
+}
+
+.navLink:hover {
+  background-color: color-mix(in srgb, var(--white) 5%, transparent);
+}
+
+.navLink:hover::after {
+  width: 80%;
+}
+
+.navLink.active {
+  background-color: color-mix(in srgb, var(--white) 10%, transparent);
+}
+
+.navLink.active::after {
+  width: 80%;
+  background-color: var(--primary-blue);
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.userSection:hover {
+  background-color: color-mix(in srgb, var(--white) 5%, transparent);
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid color-mix(in srgb, var(--white) 20%, transparent);
+  transition: all 0.2s ease;
+}
+
+.userSection:hover .userAvatar {
+  border-color: var(--primary-blue);
+  transform: scale(1.05);
+}
+
+.userName {
+  font-weight: 500;
+  color: var(--white);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .navContainer {
+    padding: 0.75rem 1rem;
+  }
+
+  .navContainer.scrolled {
+    padding: 0.5rem 1rem;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .userName {
+    display: none;
+  }
 }

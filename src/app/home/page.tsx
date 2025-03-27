@@ -20,18 +20,29 @@ export default function Home() {
 	const [activeTab, setActiveTab] = useState<Tab>('lent');
 	const [transfers, setTransfers] = useState<Transfer[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [isTabLoading, setIsTabLoading] = useState(false);
+	const [loadingText, setLoadingText] = useState('Cargando prestamos...');
 
 	useEffect(() => {
 		const fetchTransfers = async () => {
 			if (user?.email) {
+				setIsTabLoading(true);
+				setLoadingText(activeTab === 'lent' ? 'Cargando prestamos prestados...' : 'Cargando prestamos recibidos...');
 				const data = await getTransfers(user.email, activeTab);
 				setTransfers(data);
+				setIsTabLoading(false);
 			}
 			setLoading(false);
 		};
 
 		fetchTransfers();
 	}, [user?.email, activeTab]);
+
+	const handleTabChange = (tab: Tab) => {
+		setActiveTab(tab);
+		setTransfers([]); // Clear transfers immediately when changing tabs
+		setLoadingText(tab === 'lent' ? 'Cargando prestamos prestados...' : 'Cargando prestamos recibidos...');
+	};
 
 	const handleReturn = async (transferId: string) => {
 		try {
@@ -58,8 +69,32 @@ export default function Home() {
 
 	const groupedTransfers = transfersByUser(transfers);
 
-	if (loading) {
-		return <div className={styles.loading}>Loading...</div>;
+	if (loading || isTabLoading) {
+		return (
+			<>
+				<h1 className={styles.title}>Mis prestamos</h1>
+				<div className={styles.tabContainer}>
+					<Button 
+						type="button"
+						className={`${styles.tabButton} ${activeTab === 'lent' ? styles.selected : ''}`}
+						disabled={isTabLoading}
+					>
+						Prestados
+					</Button>
+					<Button 
+						type="button"
+						className={`${styles.tabButton} ${activeTab === 'borrowed' ? styles.selected : ''}`}
+						disabled={isTabLoading}
+					>
+						Prestados a mi
+					</Button>
+				</div>
+				<div className={styles.loading}>
+					<div className={styles.spinner} />
+					<span className={styles.loadingText}>{loadingText}</span>
+				</div>
+			</>
+		);
 	}
 
 	return (
@@ -68,14 +103,14 @@ export default function Home() {
 			<div className={styles.tabContainer}>
 				<Button 
 					type="button"
-					onClick={() => setActiveTab('lent')}
+					onClick={() => handleTabChange('lent')}
 					className={`${styles.tabButton} ${activeTab === 'lent' ? styles.selected : ''}`}
 				>
 					Prestados
 				</Button>
 				<Button 
 					type="button"
-					onClick={() => setActiveTab('borrowed')}
+					onClick={() => handleTabChange('borrowed')}
 					className={`${styles.tabButton} ${activeTab === 'borrowed' ? styles.selected : ''}`}
 				>
 					Prestados a mi
@@ -98,7 +133,7 @@ export default function Home() {
 					</div>
 				))
 			) : (
-				<div className={styles.emptyState}>
+				<div className={`${styles.emptyState} ${styles.transferContainer}`}>
 					<span>No tenes prestamos {activeTab === 'lent' ? 'prestados' : 'prestados a ti'}</span>
 					<Link className={styles.link} href="/home/new">Crea un nuevo prestamo</Link>
 				</div>
