@@ -14,11 +14,12 @@ import { findCard } from "./actions"
 import styles from "./styles.module.css"
 
 type Props = {
-  cardCounter: Record<string, CardAPI & { count: number }>
+  cardCounter: Record<string, CardAPI & { count: number; comment?: string }>
   handleCounterChange: (card: CardAPI, newCount: number) => void
+  handleCommentChange: (card: CardAPI, comment: string) => void
 }
 
-export default function CardSearch({ cardCounter, handleCounterChange }: Props) {
+export default function CardSearch({ cardCounter, handleCounterChange, handleCommentChange }: Props) {
   const [cardsFound, setCardsFound] = useState<CardAPI[]>([])
   const [loadingCards, setLoadingCards] = useState(false)
   const [card, setCard] = useState<string>("")
@@ -71,7 +72,9 @@ export default function CardSearch({ cardCounter, handleCounterChange }: Props) 
           <Card key={`${card.name}-${index}`} card={card} cardType="card">
             <CardCounter
               count={card.id ? cardCounter[card.id]?.count || 0 : 0}
+              comment={card.id ? cardCounter[card.id]?.comment || "" : ""}
               setCount={(newCount) => handleCounterChange(card as CardAPI, newCount)}
+              onCommentChange={(comment) => handleCommentChange(card as CardAPI, comment)}
             />
           </Card>
         ))}

@@ -7,7 +7,8 @@ const CardSchema = z.object({
   id: z.string(),
   name: z.string(),
   count: z.number().int().positive(),
-  imageUrl: z.string().url()
+  imageUrl: z.string().url(),
+  comment: z.string().optional()
 });
 
 const TransferSchema = z.object({
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
         cardId: card.id,
         cardName: card.name,
         cardImage: card.imageUrl,
+        comment: card.comment,
       });
       await transfer.save();
     }
