@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { returnTransfer } from '@/app/home/actions';
 import styles from './styles.module.css';
+import Button from '../Button';
 
 interface Props {
   transferId: string;
@@ -22,12 +22,15 @@ export default function ReturnButton({ transferId, onReturn }: Props) {
   };
 
   return (
-    <button 
+    <Button
       className={styles.returnButton}
       onClick={handleClick}
       disabled={isLoading}
+      type="button"
+      variant="primary"
+      isLoading={isLoading}
     >
-      {isLoading ? 'Devolviendo...' : 'Devolver'}
-    </button>
+      Devolver
+    </Button>
   );
 } 

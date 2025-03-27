@@ -6,19 +6,14 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { toast } from "react-toastify";
 
 import CardSearch from "@/app/components/CardSearch";
-import { CardCount } from "@/types/types";
-import { createTransfer } from "./actions";
+import { CardCount, User } from "@/types/types";
+import { createTransfer } from "@/app/serverActions/createTransfer";
 import Select from "@/app/components/Select";
+import DirectionSelector from "@/app/components/DirectionSelector";
 
 import styles from "./styles.module.css";
 import CardListMin from "@/app/components/CardListMin";
 import Button from "@/app/components/Button";
-
-interface User {
-  email: string;
-  name: string;
-  picture?: string;
-}
 
 type TransferDirection = 'to' | 'from';
 
@@ -93,22 +88,7 @@ export default function NewTransfer() {
       <h1 className={styles.title}>Nuevo prestamo</h1>
       <div className={styles.newTransferContainer}>
         <div className={styles.newTransferForm}>
-          <div className={styles.directionSelector}>
-            <Button 
-              type="button" 
-              onClick={() => setDirection('to')}
-              className={`${styles.directionButton} ${direction === 'to' ? styles.selected : ''}`}
-            >
-              Presto a
-            </Button>
-            <Button 
-              type="button" 
-              onClick={() => setDirection('from')}
-              className={`${styles.directionButton} ${direction === 'from' ? styles.selected : ''}`}
-            >
-              Me prestan
-            </Button>
-          </div>
+          <DirectionSelector direction={direction} onDirectionChange={setDirection} />
           <Select
             placeholder={direction === 'to' ? "A quien le prestas?" : "Quien te presta?"}
             value={selectedUser}
@@ -129,11 +109,9 @@ export default function NewTransfer() {
           >
             Confirmar
           </Button>
-        </div>
-        <div className={styles.cardListContainer}>
           <CardListMin cardCounter={cardCounter} removeCard={(cardId) => onCounterChange(cardId, 0)} />
-          <CardSearch cardCounter={cardCounter} handleCounterChange={onCounterChange}/>
         </div>
+        <CardSearch cardCounter={cardCounter} handleCounterChange={onCounterChange}/>
       </div>
     </>
   )

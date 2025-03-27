@@ -1,0 +1,28 @@
+.tabContainer {
+  display: flex;
+  margin-bottom: 2rem;
+  max-width: 550px;
+  width: 100%;
+  background-color: var(--gray);
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+
+.tabButton {
+  flex: 1;
+  background-color: transparent;
+  border: 2px solid var(--gray);
+  color: var(--black);
+  font-weight: 700;
+  transition: all 0.2s ease;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tabButton.selected {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border-color: var(--primary-blue);
+}
+

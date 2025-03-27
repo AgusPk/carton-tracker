@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-width: 200px;
+  max-width: 155px;
+  width: 100%;
   position: relative;
 }
 
@@ -10,29 +10,4 @@
   max-width: 155px;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.detail {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.setDetails {
-  display: flex;
-  justify-content: space-between;
-}
-
-.setLogo {
-  max-width: 3.125rem;
-  width: 100%;
-}
-
-.number {
-  font-size: .75rem;
-}
-
-.returnButton {
-  max-width: 100%;
-  cursor: pointer;
 }

@@ -1,0 +1,46 @@
+.directionSelector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.toggleContainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 40px;
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.toggleBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--primary-blue);
+  transition: transform 0.3s ease;
+}
+
+.toggleBackground.right {
+  transform: translateX(100%);
+}
+
+.toggleOption {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray);
+  transition: color 0.3s ease;
+}
+
+.toggleOption.selected {
+  color: var(--white);
+} 

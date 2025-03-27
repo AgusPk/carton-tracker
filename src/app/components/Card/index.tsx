@@ -31,7 +31,7 @@ export default function Card({ card, children, cardType = "card" }: Props) {
   return (
     <div className={styles.container}>
       {image && (
-        <Image className={styles.image} src={image} width={150} height={200} alt={card.name || ""} />
+        <Image className={styles.image} src={image} width={200} height={255} alt={card.name || ""} />
       )}
       {children}
     </div>

@@ -14,3 +14,9 @@ export interface Transfer extends Partial<CardAPI> {
 export interface CardCount extends CardAPI {
   count: number;
 }
+
+export interface User {
+  email: string;
+  name: string;
+  picture?: string;
+}
