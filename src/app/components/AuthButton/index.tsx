@@ -4,8 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import useOnClickOutside from "@/app/hooks/useOnClickOutside";
-
-import { logout } from "./actions";
+import Link from "next/link";
 
 import styles from "./styles.module.css";
 
@@ -22,7 +21,7 @@ export default function AuthButton() {
         <Image className={styles.avatar} onClick={() => setIsMenuOpen(!isMenuOpen)} src={user.picture} alt={user?.name || ''} width={20} height={20} />
       }
       {isMenuOpen && <div className={styles.userMenuContainer}>
-        <button onClick={logout}>Logout</button>
+        <Link href="/api/auth/logout">Logout</Link>
       </div>}
     </div>
   );
