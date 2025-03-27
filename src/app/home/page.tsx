@@ -24,15 +24,14 @@ export default function Home() {
 	useEffect(() => {
 		const fetchTransfers = async () => {
 			if (user?.email) {
-				const data = await getTransfers(user.email);
-				console.log('Fetched transfers:', data);
+				const data = await getTransfers(user.email, activeTab);
 				setTransfers(data);
 			}
 			setLoading(false);
 		};
 
 		fetchTransfers();
-	}, [user?.email]);
+	}, [user?.email, activeTab]);
 
 	const handleReturn = async (transferId: string) => {
 		try {
@@ -48,9 +47,6 @@ export default function Home() {
 		}
 	};
 
-	const lentTransfers = transfers.filter(t => t.from === user?.email);
-	const borrowedTransfers = transfers.filter(t => t.to === user?.email);
-
 	const transfersByUser = (transfers: Transfer[]) => {
 		return transfers.reduce((acc: Record<string, Transfer[]>, transfer: Transfer) => {
 			const key = activeTab === 'lent' ? transfer.to : transfer.from;
@@ -60,8 +56,7 @@ export default function Home() {
 		}, {} as Record<string, Transfer[]>);
 	};
 
-	const currentTransfers = activeTab === 'lent' ? lentTransfers : borrowedTransfers;
-	const groupedTransfers = transfersByUser(currentTransfers);
+	const groupedTransfers = transfersByUser(transfers);
 
 	if (loading) {
 		return <div className={styles.loading}>Loading...</div>;
@@ -86,7 +81,7 @@ export default function Home() {
 					Prestados a mi
 				</Button>
 			</div>
-			{currentTransfers.length > 0 ? (
+			{transfers.length > 0 ? (
 				Object.entries(groupedTransfers).map(([user, transfers]) => (
 					<div key={user} className={styles.transferContainer}>
 						<h3 className={styles.userName}>{user}</h3>
