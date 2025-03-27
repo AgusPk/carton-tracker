@@ -1,0 +1,41 @@
+.avatar {
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  background-color: var(--white);
+  cursor: pointer;
+}
+
+.authButtonContainer {
+  position: relative;
+}
+
+.userMenuContainer {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: var(--white);
+  border: 1px solid var(--gray);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+}
+
+.userMenuContainer a {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  color: var(--black);
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.userMenuContainer a:hover {
+  background-color: var(--gray);
+  color: var(--primary-blue);
+}
+

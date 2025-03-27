@@ -1,6 +1,6 @@
 .listContainer {
   display: flex;
-  gap: 20px;
+  gap: 30px 20px;
   width: 100%;
   flex-wrap: wrap;
 }

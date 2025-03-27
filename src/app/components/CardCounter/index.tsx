@@ -8,7 +8,7 @@ type Props = {
 export default function CardCounter({ setCount, count }: Props) {
   return (
     <div className={styles.container}>
-      <button className={styles.button} onClick={() => setCount(count - 1)}>-</button>
+      <button className={styles.button} onClick={() => setCount(count - 1 < 0 ? 0 : count - 1)}>-</button>
       <span className={styles.countContainer}>{count}</span>
       <button className={styles.button} onClick={() => setCount(count + 1)}>+</button>
     </div>
