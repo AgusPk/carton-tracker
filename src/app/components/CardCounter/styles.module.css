@@ -3,30 +3,54 @@
 	width: 100%;
 	align-items: center;
 	justify-content: center;
-	gap: 8px;
-	position: absolute;
-	top: 175px;
-}
-
-.countContainer {
-	background-color: var(--black);
-	color: var(--white);
-	width: 25px;
-	height: 25px;
-	text-align: center;
-	padding: 4px;
-	font-size: 0.75rem;
-	border: 1px solid var(--white);
-	border-radius: 4px;
-}
-
-.button {
-	max-width: 25px;
-	height: 25px;
-	width: 100%;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+	position: relative;
+  }
+  
+  .countContainer {
+	background-color: var(--card);
+	color: var(--card-foreground);
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.875rem;
+	font-weight: 500;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+  }
+  
+  .button {
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
-	background-color: var(--black);
-	color: var(--white);
+	background-color: var(--primary);
+	color: white;
 	border: none;
-	border-radius: 4px;
-}
+	border-radius: var(--radius);
+	font-weight: 600;
+	font-size: 1rem;
+	transition: all var(--transition-normal);
+  }
+  
+  .button:hover {
+	background-color: var(--primary-dark);
+	transform: translateY(-1px);
+  }
+  
+  .button:active {
+	transform: translateY(1px);
+  }
+  
+  .button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: none;
+  }
+  
+  

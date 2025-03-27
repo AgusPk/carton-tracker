@@ -1,15 +1,14 @@
-import { cookies } from 'next/headers';
-import styles from './page.module.css';
-import { redirect } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
+import { cookies } from "next/headers"
+import styles from "./page.module.css"
+import { redirect } from "next/navigation"
+import Link from "next/link"
 
 export default async function Home() {
-  const cookieStore = await cookies();
-  const isLoggedIn = cookieStore.get("appSession");
+  const cookieStore = await cookies()
+  const isLoggedIn = cookieStore.get("appSession")
 
   if (isLoggedIn) {
-    redirect("/home");
+    redirect("/home")
   }
 
   return (
@@ -37,14 +36,15 @@ export default async function Home() {
           </div>
         </div>
         <div className={styles.ctas}>
-          <a href="/api/auth/login" className={styles.primary}>
+          <a href="/api/auth/login" className={`${styles.primary} ${styles.ctaButton}`}>
             Comenzar Ahora
           </a>
-          <Link href="#features" className={styles.secondary}>
+          <Link href="#features" className={`${styles.secondary} ${styles.ctaButton}`}>
             Conocer Más
           </Link>
         </div>
       </main>
     </div>
-  );
+  )
 }
+

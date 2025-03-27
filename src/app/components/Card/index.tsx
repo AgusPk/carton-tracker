@@ -1,39 +1,45 @@
-'use client';
+"use client"
 
-import { ReactNode } from "react";
-import Image from "next/image";
-import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
+import type { ReactNode } from "react"
+import Image from "next/image"
+import type { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk"
 
-import { Transfer } from "@/types/types";
+import type { Transfer } from "@/types/types"
 
-import styles from "./styles.module.css";
+import styles from "./styles.module.css"
 
 type Props = {
-  card: CardAPI | Transfer;
-  children: ReactNode;
-  cardType: "card" | "transfer";
+  card: CardAPI | Transfer
+  children: ReactNode
+  cardType: "card" | "transfer"
 }
 
 export default function Card({ card, children, cardType = "card" }: Props) {
-  
-  let image;
+  let image
   switch (cardType) {
     case "card":
-      image = 'images' in card ? card.images?.small : "";
-      break;
+      image = "images" in card ? card.images?.small : ""
+      break
     case "transfer":
-      image = 'cardImage' in card ? card.cardImage : "";
-      break;
+      image = "cardImage" in card ? card.cardImage : ""
+      break
     default:
-      image = "";
+      image = ""
   }
 
   return (
     <div className={styles.container}>
       {image && (
-        <Image className={styles.image} src={image} width={150} height={200} alt={card.name || ""} />
+        <Image
+          className={styles.image}
+          src={image || "/placeholder.svg"}
+          width={150}
+          height={200}
+          alt={card.name || ""}
+        />
       )}
-      {children}
+      <div className={styles.cardContent}>{children}</div>
     </div>
-  );
+  )
 }
+

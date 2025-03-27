@@ -1,28 +1,47 @@
 .inputWrapper {
 	position: relative;
-}
-
-.input {
 	width: 100%;
-	height: 45px;
-	padding: 0.5rem;
+  }
+  
+  .input {
+	width: 100%;
+	height: 2.75rem;
+	padding: 0.5rem 0.75rem;
 	padding-right: 2.5rem;
-	border-radius: 0.25rem;
-	background-color: var(--black);
-	color: var(--foreground);
-	font-size: 1rem;
-	border: none;
-}
-
-.inputWithIcon {
-	padding-left: 3rem;
-}
-
-.icon {
+	border-radius: var(--radius);
+	background-color: var(--card);
+	color: var(--card-foreground);
+	font-size: 0.875rem;
+	border: 1px solid var(--border);
+	transition: all var(--transition-normal);
+  }
+  
+  .input:focus {
+	outline: none;
+	border-color: var(--primary);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 25%, transparent);
+  }
+  
+  .input::placeholder {
+	color: var(--muted-foreground);
+  }
+  
+  .inputWithIcon {
+	padding-left: 2.75rem;
+  }
+  
+  .icon {
 	position: absolute;
 	left: 0.75rem;
 	top: 50%;
 	transform: translateY(-50%);
-	color: var(--foreground);
+	color: var(--muted-foreground);
 	pointer-events: none;
-}
+	transition: color var(--transition-normal);
+  }
+  
+  .input:focus + .icon {
+	color: var(--primary);
+  }
+  
+  
