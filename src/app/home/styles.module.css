@@ -31,3 +31,22 @@
   color: var(--white);
   margin: 1rem 0;
 }
+
+.amount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  background-color: var(--true-black);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--white);
+  border-radius: 0.5rem;
+}
+
+.transferInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}

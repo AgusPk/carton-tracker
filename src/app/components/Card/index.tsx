@@ -1,9 +1,12 @@
+'use client';
+
 import { ReactNode } from "react";
 import Image from "next/image";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
-import styles from "./styles.module.css";
 import { Transfer } from "@/types/types";
+
+import styles from "./styles.module.css";
 
 type Props = {
   card: CardAPI | Transfer;
