@@ -14,7 +14,7 @@ type Props = {
 export default function CardList({ cards, renderItem }: Props) {
   return (
     <div className={styles.listContainer}>
-      {cards.map((card, index) => renderItem(card, index) )}
+      {cards.map((card, index) => renderItem(card, index))}
     </div>
   );
 }

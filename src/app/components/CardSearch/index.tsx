@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Card as CardAPI } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import debounce from 'lodash.debounce';
+import Image from "next/image";
 
 import CardList from "../CardList";
 import Card from "../Card";
@@ -13,7 +14,6 @@ import searchIcon from "../../icons/ic-search.svg";
 import { findCard } from "./actions";
 
 import styles from "./styles.module.css";
-import Image from "next/image";
 
 type Props = {
   cardCounter: Record<string, CardAPI & { count: number }>;
@@ -59,8 +59,8 @@ export default function CardSearch({ cardCounter, handleCounterChange }: Props) 
       <CardList cards={cardsFound} renderItem={(card, index) => (
         <Card key={`${card.name}-${index}`} card={card} cardType="card">
           <CardCounter
-            count={cardCounter[card.id]?.count || 0}
-            setCount={(newCount) => handleCounterChange(card, newCount)}
+            count={card.id ? cardCounter[card.id]?.count || 0 : 0}
+            setCount={(newCount) => handleCounterChange(card as CardAPI, newCount)}
           />
         </Card>
       )} />
