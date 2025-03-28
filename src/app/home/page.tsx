@@ -10,6 +10,7 @@ import { Transfer } from "@/types/types";
 import Card from "../components/Card";
 import ReturnButton from "../components/ReturnButton";
 import Button from "../components/Button";
+import TransferModal from "../components/TransferModal";
 
 import styles from "./styles.module.css";
 
@@ -22,6 +23,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(true);
 	const [isTabLoading, setIsTabLoading] = useState(false);
 	const [loadingText, setLoadingText] = useState('Cargando prestamos...');
+	const [selectedTransfer, setSelectedTransfer] = useState<Transfer | null>(null);
 
 	useEffect(() => {
 		const fetchTransfers = async () => {
@@ -56,6 +58,10 @@ export default function Home() {
 			console.error('Error returning transfer:', error);
 			toast.error('Error al devolver el prestamo');
 		}
+	};
+
+	const handleCardClick = (transfer: Transfer) => {
+		setSelectedTransfer(transfer);
 	};
 
 	const transfersByUser = (transfers: Transfer[]) => {
@@ -122,7 +128,12 @@ export default function Home() {
 						<h3 className={styles.userName}>{user}</h3>
 						<div className={styles.cardList}>
 							{transfers.map((transfer: Transfer, index: number) => (
-								<Card key={index} card={transfer} cardType="transfer">
+								<Card 
+									key={index} 
+									card={transfer} 
+									cardType="transfer"
+									onClick={() => handleCardClick(transfer)}
+								>
 									<div className={styles.transferInfo}>
 										<ReturnButton transferId={transfer._id} onReturn={handleReturn} />
 										<p className={styles.amount}>{transfer.amount}</p>
@@ -137,6 +148,12 @@ export default function Home() {
 					<span>No tenes prestamos {activeTab === 'lent' ? 'prestados' : 'prestados a ti'}</span>
 					<Link className={styles.link} href="/home/new">Crea un nuevo prestamo</Link>
 				</div>
+			)}
+			{selectedTransfer && (
+				<TransferModal
+					transfer={selectedTransfer}
+					onClose={() => setSelectedTransfer(null)}
+				/>
 			)}
 		</>
 	);
