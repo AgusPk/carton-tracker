@@ -9,6 +9,7 @@ export interface Transfer extends Partial<CardAPI> {
 	cardName: string;
 	cardImage: string;
 	date: string;
+	comment?: string;
 }
 
 export interface CardCount extends CardAPI {
