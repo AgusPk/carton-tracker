@@ -8,7 +8,8 @@ export async function createTransfer(from: string, to: string, cardList: Record<
 			id: card.id,
 			count: card.count,
 			name: card.name,
-			imageUrl: card.images.small
+			imageUrl: card.images.small,
+			comment: card.comment
 		}
 	});
 	const body = JSON.stringify({

@@ -1,0 +1,16 @@
+.toastContainer {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+@media (min-width: 768px) {
+  .toastContainer {
+    top: 1rem;
+    left: auto;
+    right: 1rem;
+    bottom: auto;
+  }
+} 

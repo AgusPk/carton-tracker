@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { syncUser } from './actions';
 
 import localFont from 'next/font/local';
+import styles from './components/Toast/styles.module.css';
 
 import './globals.css';
 
@@ -34,7 +35,18 @@ export default async function RootLayout({
     <html lang="en">
       <UserProvider>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          <ToastContainer />
+          <ToastContainer
+            position="bottom-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            className={styles.toastContainer}
+          />
           {children}
         </body>
       </UserProvider>

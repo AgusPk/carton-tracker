@@ -1,11 +1,19 @@
 .container {
 	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+	position: relative;
+  }
+  
+  .counterWrapper {
+	display: flex;
 	width: 100%;
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	margin-top: 0.75rem;
-	position: relative;
   }
   
   .countContainer {
@@ -51,6 +59,27 @@
 	opacity: 0.5;
 	cursor: not-allowed;
 	transform: none;
+  }
+  
+  .commentInput {
+	width: 100%;
+	padding: 0.5rem;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background-color: var(--card);
+	color: var(--card-foreground);
+	font-size: 0.875rem;
+	transition: all var(--transition-normal);
+  }
+  
+  .commentInput:focus {
+	outline: none;
+	border-color: var(--primary);
+	box-shadow: 0 0 0 1px var(--primary);
+  }
+  
+  .commentInput::placeholder {
+	color: var(--muted-foreground);
   }
   
   

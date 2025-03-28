@@ -10,25 +10,30 @@ type Props = {
 	card: CardAPI | Transfer;
 	children: ReactNode;
 	cardType?: "card" | "transfer";
+	onClick?: () => void;
 }
 
-export default function Card({ card, children, cardType = "card" }: Props) {
-	const image = cardType === "card" 
-		? "images" in card ? card.images?.small : ""
-		: "cardImage" in card ? card.cardImage : ""
+export default function Card({ card, children, cardType = "card", onClick }: Props) {
+	const handleClick = (e: React.MouseEvent) => {
+		// If the click target is or is inside the cardContent div, don't trigger the card click
+		if (!e.target || (e.target as HTMLElement).closest(`.${styles.cardContent}`)) {
+			return;
+		}
+		onClick?.();
+	};
 
 	return (
-		<div className={styles.container}>
-			{image && (
-				<Image
-					className={styles.image}
-					src={image || "/placeholder.svg"}
-					width={150}
-					height={200}
-					alt={card.name || ""}
-				/>
-			)}
-			<div className={styles.cardContent}>{children}</div>
+		<div className={styles.container} onClick={handleClick}>
+			<Image
+				src={cardType === "card" ? (card as CardAPI).images.small : (card as Transfer).cardImage}
+				alt={cardType === "card" ? (card as CardAPI).name : (card as Transfer).cardName}
+				width={245}
+				height={342}
+				className={styles.image}
+			/>
+			<div className={styles.cardContent}>
+				{children}
+			</div>
 		</div>
 	)
 }

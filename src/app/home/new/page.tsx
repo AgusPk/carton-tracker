@@ -9,10 +9,10 @@ import CardSearch from "@/app/components/CardSearch"
 import type { CardCount } from "@/types/types"
 import { createTransfer } from "./actions"
 import Select from "@/app/components/Select"
-
-import styles from "./styles.module.css"
 import CardListMin from "@/app/components/CardListMin"
 import Button from "@/app/components/Button"
+
+import styles from "./styles.module.css"
 
 interface User {
   email: string
@@ -59,34 +59,50 @@ export default function NewTransfer() {
       delete newCardCounter[card.id]
       setCardCounter(newCardCounter)
     } else {
-      setCardCounter({ ...cardCounter, [card.id]: { ...card, count: newCount } })
+      setCardCounter({
+        ...cardCounter,
+        [card.id]: { ...card, count: newCount, comment: cardCounter[card.id]?.comment }
+      })
+    }
+  }
+
+  const onCommentChange = (card: CardAPI, comment: string) => {
+    if (card.id in cardCounter) {
+      setCardCounter({
+        ...cardCounter,
+        [card.id]: { ...cardCounter[card.id], comment }
+      })
     }
   }
 
   const handleSubmit = async () => {
-    if (user?.email && Object.values(cardCounter).length > 0) {
-      setCreateLoading(true)
-      const toastId = toast.loading("Creando prestamo...")
-      try {
-        const from = direction === "to" ? user.email : selectedUser
-        const to = direction === "to" ? selectedUser : user.email
-        const response = await createTransfer(from, to, cardCounter)
-        toast.dismiss(toastId)
-        if (response) {
-          toast.success("Prestamo creado correctamente")
-        }
-      } catch (error) {
-        console.log({ error })
-        toast.dismiss(toastId)
-        toast.error("Error al crear prestamo")
-      } finally {
-        setCreateLoading(false)
+    if (!selectedUser || Object.keys(cardCounter).length === 0) {
+      toast.error("Por favor selecciona un usuario y al menos una carta")
+      return
+    }
+
+    setCreateLoading(true)
+    try {
+      const success = await createTransfer(
+        direction === "to" ? user?.email || "" : selectedUser,
+        direction === "to" ? selectedUser : user?.email || "",
+        cardCounter
+      )
+
+      if (success) {
+        toast.success("Prestamo creado exitosamente")
+        setCardCounter({})
+        setSelectedUser("")
+      } else {
+        toast.error("Error al crear el prestamo")
       }
+    } catch (error) {
+      console.error("Error creating transfer:", error)
+      toast.error("Error al crear el prestamo")
+    } finally {
+      setCreateLoading(false)
     }
   }
-
-  const hasCards = Object.values(cardCounter).length > 0
-  const isFormValid = hasCards && selectedUser && user?.email
 
   return (
     <>
@@ -121,17 +137,21 @@ export default function NewTransfer() {
             isLoading={loadingUsers}
             className={styles.nameInput}
           />
-          <Button type="button" onClick={handleSubmit} isLoading={createLoading} disabled={!isFormValid}>
+          <Button type="button" onClick={handleSubmit} isLoading={createLoading} disabled={!selectedUser || Object.keys(cardCounter).length === 0}>
             Confirmar
           </Button>
         </div>
         <div className={styles.cardListContainer}>
           <div>
             <h3 className={styles.sectionTitle}>Cartas seleccionadas</h3>
-            <CardListMin cardCounter={cardCounter} removeCard={(cardId) => onCounterChange(cardId, 0)} />
+            <CardListMin cardCounter={cardCounter} removeCard={(card) => onCounterChange(card, 0)} />
           </div>
           <div className={styles.cardSearchSection}>
-            <CardSearch cardCounter={cardCounter} handleCounterChange={onCounterChange} />
+            <CardSearch 
+              cardCounter={cardCounter} 
+              handleCounterChange={onCounterChange}
+              handleCommentChange={onCommentChange}
+            />
           </div>
         </div>
       </div>
