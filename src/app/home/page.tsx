@@ -49,10 +49,8 @@ export default function Home() {
 	const handleReturn = async (transferId: string) => {
 		try {
 			console.log('Attempting to return transfer:', transferId);
-			const toastId = toast.loading('Devolviendo prestamo...');
 			await returnTransfer(transferId);
 			setTransfers(prevTransfers => prevTransfers.filter(t => t._id !== transferId));
-			toast.dismiss(toastId);
 			toast.success('Prestamo devuelto correctamente');
 		} catch (error) {
 			console.error('Error returning transfer:', error);

@@ -30,6 +30,20 @@ export default function NewTransfer() {
   const [users, setUsers] = useState<User[]>([])
   const [loadingUsers, setLoadingUsers] = useState(true)
   const [direction, setDirection] = useState<TransferDirection>("to")
+  const [showFloatingButton, setShowFloatingButton] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const formElement = document.querySelector(`.${styles.newTransferForm}`)
+      if (formElement) {
+        const rect = formElement.getBoundingClientRect()
+        setShowFloatingButton(rect.bottom < 0)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -105,7 +119,7 @@ export default function NewTransfer() {
   }
 
   return (
-    <>
+    <div className={styles.newTransferPage}>
       <h1 className={styles.title}>Nuevo prestamo</h1>
       <div className={styles.newTransferContainer}>
         <div className={styles.newTransferForm}>
@@ -137,7 +151,12 @@ export default function NewTransfer() {
             isLoading={loadingUsers}
             className={styles.nameInput}
           />
-          <Button type="button" onClick={handleSubmit} isLoading={createLoading} disabled={!selectedUser || Object.keys(cardCounter).length === 0}>
+          <Button 
+            type="button" 
+            onClick={handleSubmit} 
+            isLoading={createLoading} 
+            disabled={!selectedUser || Object.keys(cardCounter).length === 0}
+          >
             Confirmar
           </Button>
         </div>
@@ -155,7 +174,18 @@ export default function NewTransfer() {
           </div>
         </div>
       </div>
-    </>
+      <div className={`${styles.stickyFooter} ${showFloatingButton ? styles.visible : ''}`}>
+        <Button 
+          type="button" 
+          onClick={handleSubmit} 
+          isLoading={createLoading} 
+          disabled={!selectedUser || Object.keys(cardCounter).length === 0}
+          className={styles.confirmButton}
+        >
+          Confirmar
+        </Button>
+      </div>
+    </div>
   )
 }
 

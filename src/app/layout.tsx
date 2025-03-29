@@ -36,15 +36,17 @@ export default async function RootLayout({
       <UserProvider>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
           <ToastContainer
-            position="bottom-center"
-            autoClose={3000}
+            position="bottom-right"
+            autoClose={2000}
             hideProgressBar={false}
-            newestOnTop={false}
+            newestOnTop={true}
             closeOnClick
             rtl={false}
             pauseOnFocusLoss
-            draggable
+            draggable={false}
             pauseOnHover
+            theme="colored"
+            limit={3}
             className={styles.toastContainer}
           />
           {children}

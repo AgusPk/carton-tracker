@@ -14,7 +14,7 @@ export default function TransferModal({ transfer, onClose }: Props) {
         <div className={styles.transferDetails}>
           <h2>{transfer.cardName}</h2>
           <div className={styles.imageContainer}>
-            <img src={transfer.cardImage} alt={transfer.cardName} />
+            <img src={transfer.cardImage} alt={transfer.cardName} className={styles.cardImage} />
           </div>
           <div className={styles.infoContainer}>
             <p><strong>Cantidad:</strong> {transfer.amount}</p>

@@ -5,12 +5,28 @@
   min-height: 100svh;
   padding: 5rem 2rem;
   gap: 4rem;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans);
   background: linear-gradient(
-    to bottom,
+    135deg,
     var(--background),
-    color-mix(in srgb, var(--background) 95%, var(--primary) 5%)
+    color-mix(in srgb, var(--background) 85%, var(--primary) 15%)
   );
+  position: relative;
+  overflow: hidden;
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--primary) 15%, transparent) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, color-mix(in srgb, var(--secondary) 15%, transparent) 0%, transparent 40%);
+  opacity: 0.8;
+  pointer-events: none;
 }
 
 .main {
@@ -20,28 +36,42 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .hero {
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
+  padding: 3rem;
+  background: var(--card);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 20px 5px color-mix(in srgb, var(--primary) 10%, transparent);
+  transform: perspective(1000px) rotateX(2deg);
 }
 
 .title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  line-height: 1.1;
   margin-bottom: 1.5rem;
-  background: linear-gradient(to right, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmerTitle 3s ease-in-out infinite alternate;
+  letter-spacing: -0.02em;
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle {
-  font-size: 1.25rem;
-  line-height: 1.5;
+  font-size: var(--text-xl);
+  line-height: 1.6;
   color: var(--foreground);
   max-width: 600px;
   margin: 0 auto;
@@ -56,34 +86,46 @@
 }
 
 .feature {
-  padding: 2rem;
+  padding: 2.5rem;
   background: var(--card);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   text-align: center;
   transition: all var(--transition-normal);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    var(--shadow-sm),
+    0 0 15px 2px color-mix(in srgb, var(--primary) 5%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transform: perspective(1000px);
 }
 
 .feature:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  transform: perspective(1000px) translateY(-8px) rotateX(2deg) scale(1.02);
+  box-shadow: 
+    var(--shadow-xl),
+    0 0 25px 5px color-mix(in srgb, var(--primary) 15%, transparent);
   border-color: var(--primary-light);
 }
 
 .featureIcon {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 3rem;
+  margin-bottom: 2rem;
   display: inline-block;
   position: relative;
+  color: var(--primary);
+  filter: drop-shadow(0 4px 8px color-mix(in srgb, var(--primary) 30%, transparent));
 }
 
 .featureIcon::after {
   content: "";
   position: absolute;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: color-mix(in srgb, var(--primary) 15%, transparent);
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, 
+    color-mix(in srgb, var(--primary) 20%, transparent),
+    color-mix(in srgb, var(--secondary) 20%, transparent)
+  );
   border-radius: 50%;
   z-index: -1;
   top: 50%;
@@ -93,15 +135,17 @@
 }
 
 .feature h3 {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   margin-bottom: 0.75rem;
   color: var(--foreground);
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .feature p {
   color: var(--muted-foreground);
   line-height: 1.6;
+  font-size: var(--text-base);
 }
 
 .ctas {
@@ -112,54 +156,85 @@
 }
 
 .ctaButton {
-  appearance: none;
-  border-radius: 2rem;
-  height: 3rem;
-  padding: 0 2rem;
-  border: none;
-  transition: all var(--transition-normal);
-  cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  line-height: 1.5;
-  font-weight: 500;
-  text-decoration: none;
+  gap: 0.75rem;
+  height: 3.5rem;
+  padding: 0 2.5rem;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .primary {
-  background: var(--primary);
+  background: var(--primary-gradient);
   color: white;
-  gap: 0.5rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: 
+    var(--shadow-md),
+    0 0 15px 2px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 .primary:hover {
-  background: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 25px 5px color-mix(in srgb, var(--primary) 40%, transparent);
+}
+
+.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.primary:hover::before {
+  transform: translateX(100%);
 }
 
 .secondary {
-  border: 1px solid var(--border);
-  min-width: 180px;
+  background: rgba(255, 255, 255, 0.1);
   color: var(--foreground);
-  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .secondary:hover {
   background: var(--accent);
   border-color: var(--primary-light);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 
+    var(--shadow-md),
+    0 0 15px 2px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 .footer {
   grid-row-start: 3;
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   justify-content: center;
+  padding: 2.5rem;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 20px 5px color-mix(in srgb, var(--primary) 5%, transparent);
 }
 
 .footer a {
@@ -167,11 +242,15 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--muted-foreground);
-  transition: color var(--transition-fast);
+  transition: all var(--transition-normal);
+  padding: 0.5rem;
+  border-radius: var(--radius);
 }
 
 .footer a:hover {
   color: var(--primary);
+  background: var(--accent);
+  transform: translateY(-1px);
 }
 
 .footer img {
@@ -208,11 +287,11 @@
   }
 
   .title {
-    font-size: 2.5rem;
+    font-size: var(--text-3xl);
   }
 
   .subtitle {
-    font-size: 1.125rem;
+    font-size: var(--text-lg);
   }
 
   .features {
@@ -229,6 +308,12 @@
 
   .ctaButton {
     width: 100%;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }
 
