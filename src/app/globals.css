@@ -1,31 +1,44 @@
 :root {
-  /* Primary palette - minimalistic with accent colors */
+  /* Primary palette - enhanced with modern colors */
   --primary: #6366f1;
   --primary-light: #818cf8;
-  --primary-dark: #4f46e5;
+  --primary-dark: #4338ca;
+  --primary-gradient: linear-gradient(135deg, #6366f1, #4338ca);
 
   --secondary: #10b981;
   --secondary-light: #34d399;
   --secondary-dark: #059669;
+  --secondary-gradient: linear-gradient(135deg, #10b981, #047857);
 
   --danger: #ef4444;
   --danger-light: #f87171;
   --danger-dark: #dc2626;
+  --danger-gradient: linear-gradient(135deg, #ef4444, #b91c1c);
 
-  /* Neutral palette - for backgrounds, text, and borders */
-  --background: #ffffff;
-  --foreground: #171717;
-  --card: #ffffff;
-  --card-foreground: #171717;
-  --muted: #f3f4f6;
-  --muted-foreground: #6b7280;
-  --accent: #f9fafb;
-  --accent-foreground: #111827;
-  --border: #e5e7eb;
-  --input: #e5e7eb;
+  /* Neutral palette - refined for better contrast */
+  --background: #fafafa;
+  --foreground: #18181b;
+  --card: rgba(255, 255, 255, 0.85);
+  --card-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
 
-  /* Spacing system */
+  /* Semantic colors */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+
+  /* Spacing system - refined for better rhythm */
+  --radius-sm: 0.25rem;
   --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
   --spacing-3: 0.75rem;
@@ -35,16 +48,30 @@
   --spacing-12: 3rem;
   --spacing-16: 4rem;
 
+  /* Typography */
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
   /* Animation */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Shadows */
+  /* Shadows - enhanced for depth */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 
   /* Legacy variables - keeping for compatibility */
   --primary-yellow: #ffcb05;
@@ -63,19 +90,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #09090b;
     --foreground: #fafafa;
-    --card: #171717;
+    --card: rgba(24, 24, 27, 0.85);
     --card-foreground: #fafafa;
-    --muted: #262626;
-    --muted-foreground: #a3a3a3;
-    --accent: #262626;
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+    --accent: #27272a;
     --accent-foreground: #fafafa;
-    --border: #404040;
-    --input: #404040;
+    --border: #3f3f46;
+    --input: #3f3f46;
 
     --primary-light: #818cf8;
-    --primary-dark: #4f46e5;
+    --primary-dark: #4338ca;
   }
 }
 
@@ -118,35 +145,46 @@ a:hover {
   }
 }
 
-/* Focus styles */
+/* Enhanced focus styles */
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-/* Scrollbar styling */
+/* Modern scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--muted);
-  border-radius: 8px;
+  border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--muted-foreground);
-  border-radius: 8px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--muted);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
 
-/* Selection styling */
+/* Enhanced selection styling */
 ::selection {
   background-color: var(--primary-light);
   color: var(--background);
+  text-shadow: none;
+}
+
+/* Glassmorphism utility classes */
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 

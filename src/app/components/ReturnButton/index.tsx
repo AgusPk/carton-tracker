@@ -26,7 +26,14 @@ export default function ReturnButton({ transferId, onReturn }: Props) {
       onClick={handleClick}
       disabled={isLoading}
     >
-      {isLoading ? 'Devolviendo...' : 'Devolver'}
+      {isLoading ? (
+        <>
+          <span className={styles.spinner} />
+          <span>Devolviendo...</span>
+        </>
+      ) : (
+        'Devolver'
+      )}
     </button>
   );
 } 
